@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stack>
 #include <unistd.h>
-
+#include <thread>
 
 using namespace std;
 
@@ -114,7 +114,7 @@ pos_t explore_path(pos_t actual_pos) {
 	if(valid_positions.empty()) {
 		return dead_end;
 	}
-	if(valid_positions.size() > 1) {
+	if(valid_positions.size() > 1) {//TODO: checar se eh > 2. se nao for, criar somente a thread de exploracao. se for, criar a thread adicional
 		fork_points.push(actual_pos);
 	}
 	return valid_positions.top();
@@ -177,4 +177,18 @@ int main(int argc, char* argv[])
 	pos_t initial_pos = load_maze("maze.txt");
 	print_start(initial_pos);
 	walk(initial_pos);
+
 }
+
+/*exemplo de como criar thread e inserir elementos pra gente usar mais tarde
+void threadPrintStart(pos_t initial_pos) {
+    //faz o mesmo de print_start
+}
+
+int main(int argc, char* argv[])
+{
+	std::thread t1(threadPrintStart, initial_pos);
+	t1.join();
+
+    return 0;	
+}*/
